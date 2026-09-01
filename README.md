@@ -1,3 +1,7 @@
+## Name: AGILAN J
+## Reg no: 212224100002
+
+
 # EX-NO-13-MESSAGE-AUTHENTICATION-CODE-MAC
 
 ## AIM:
@@ -26,9 +30,54 @@ To implement MESSAGE AUTHENTICATION CODE(MAC)
 
 ## Program:
 
+```c
+#include <stdio.h>
+#include <string.h>
+
+#define KEY "secretkey"
+
+unsigned int mac(char *msg, char *key)
+{
+    unsigned int m = 0;
+    int i;
+
+    for (i = 0; msg[i] != '\0'; i++)
+        m ^= msg[i];
+
+    for (i = 0; key[i] != '\0'; i++)
+        m ^= key[i];
+
+    return m;
+}
+
+int main()
+{
+    char msg[100];
+    unsigned int sent, received;
+
+    printf("Enter message: ");
+    fgets(msg, sizeof(msg), stdin);
+    msg[strcspn(msg, "\n")] = '\0';
+
+    sent = mac(msg, KEY);
+    received = mac(msg, KEY);
+
+    printf("Sent MAC: %u\n", sent);
+    printf("Received MAC: %u\n", received);
+
+    if (sent == received)
+        printf("Message is authentic.\n");
+    else
+        printf("Integrity check failed.\n");
+
+    return 0;
+}
+```
 
 
 ## Output:
+
+<img width="740" height="397" alt="2026-09-01 at 2 11 17 PM" src="https://github.com/user-attachments/assets/8bbf47cd-28bc-4593-b41f-a08e6e97ca7c" />
 
 
 ## Result:
